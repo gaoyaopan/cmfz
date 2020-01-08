@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterDao">
+    <insert id="insert" parameterType="com.baizhi.entity.Chapter">
+        insert into chapter values(#{id},#{title},#{url},#{csize},#{ctime},#{createTime},#{albumId})
+    </insert>
+
+    <delete id="delete">
+        delete from chapter where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="com.baizhi.entity.Chapter">
+        update chapter
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="url!=null">url=#{url},</if>
+            <if test="csize!=null">csize=#{csize},</if>
+            <if test="ctime!=null">ctime=#{ctime},</if>
+            <if test="createTime!=null">createTime=#{createTime},</if>
+            <if test="albumId!=null">albumId=#{albumId},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="findByPage" resultType="com.baizhi.entity.Chapter">
+        select * from chapter c right join album b on c.albumId=b.id where albumId=#{id}
+    </select>
+
+    <select id="totalCount" resultType="int">
+        select count(*) from chapter where albumId=#{id}
+    </select>
+</mapper>

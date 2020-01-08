@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+
+    <insert id="insert" parameterType="com.baizhi.entity.Album">
+        insert into album values(#{id},#{title},#{score},#{author},#{broadcast},#{count},#{description},#{status},#{createDate},#{src})
+    </insert>
+
+    <delete id="delete">
+        delete from album where id=#{id}
+    </delete>
+
+    <update id="update" parameterType="com.baizhi.entity.Album">
+        update album set
+        <trim suffixOverrides=",">
+            <if test="title!=null">title=#{title},</if>
+            <if test="score!=null">score=#{score},</if>
+            <if test="author!=null">author=#{author},</if>
+            <if test="broadcast!=null">broadcast=#{broadcast},</if>
+            <if test="count!=null">count=#{count},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="src!=null">src=#{src},</if>
+            <if test="createDate!=null">createDate=#{createDate},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <select id="findByPage" resultType="com.baizhi.entity.Album">
+        select * from album limit #{start},#{rows}
+    </select>
+
+    <select id="totalCount" resultType="int">
+        select count(*) from album
+    </select>
+
+</mapper>
